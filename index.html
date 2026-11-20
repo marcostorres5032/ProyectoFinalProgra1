@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)https://mi.cugdl.udg.mx/pluginfile.php/48557/mod_resource/content/1/Proyecto_final.html#construir -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Proyecto Integrador U4</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./Proyecto Integrador U4_files/css2">
+<style>
+/* Layout: guía paso a paso tipo cuaderno Colab. Barra de progreso fija arriba, una página a la vez con transición lateral, celdas de código grises y acento naranja de Colab */
+:root{
+  --bg:#f7f8fa; --paper:#ffffff; --fg:#1d2127; --muted:#5d6672; --line:#e0e4ea;
+  --accent:#e8710a; --accent-soft:#fff2e5; --accent-ink:#9a4700;
+  --cell:#f1f3f4; --gutter:#8b9199;
+  --ok:#137333; --ok-soft:#e6f4ea; --no:#b3261e; --no-soft:#fce8e6;
+  --info:#1a5fb4; --info-soft:#e8f0fe; --warn-soft:#fef7e0; --warn-line:#e3a008;
+  --hl:#ffe08a;
+  --team:#e8710a; --indiv:#1a5fb4;
+  --f-body:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --t-xs:13px; --t-s:14px; --t-m:16px; --t-l:19px; --t-xl:24px; --t-xxl:clamp(28px,6vw,42px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15171a; --paper:#1d2024; --fg:#e9ebee; --muted:#a6aeb8; --line:#32373d;
+  --accent:#ffa24d; --accent-soft:#38291a; --accent-ink:#ffc48d;
+  --cell:#25282d; --gutter:#80868b;
+  --ok:#81c995; --ok-soft:#1c3224; --no:#f28b82; --no-soft:#3a2120;
+  --info:#8ab4f8; --info-soft:#1b2940; --warn-soft:#37301a; --warn-line:#fdd663;
+  --hl:#6b5418; --team:#ffa24d; --indiv:#8ab4f8; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#15171a; --paper:#1d2024; --fg:#e9ebee; --muted:#a6aeb8; --line:#32373d;
+  --accent:#ffa24d; --accent-soft:#38291a; --accent-ink:#ffc48d;
+  --cell:#25282d; --gutter:#80868b;
+  --ok:#81c995; --ok-soft:#1c3224; --no:#f28b82; --no-soft:#3a2120;
+  --info:#8ab4f8; --info-soft:#1b2940; --warn-soft:#37301a; --warn-line:#fdd663;
+  --hl:#6b5418; --team:#ffa24d; --indiv:#8ab4f8; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:var(--t-m);line-height:1.65;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{line-height:1.25;text-wrap:balance;margin:0;font-weight:600}
+h1{font-size:var(--t-xxl);font-weight:700;letter-spacing:-.01em}
+h2{font-size:var(--t-xl);font-weight:700}
+h3{font-size:var(--t-l)}
+h4{font-size:var(--t-m)}
+p{margin:0}
+b,strong{font-weight:600}
+code,.mono{font-family:var(--f-mono);font-variant-ligatures:none;font-size:.9em}
+:not(pre)>code{background:var(--cell);padding:1px 6px;border-radius:4px;word-break:break-word}
+a{color:var(--info)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.note{font-size:var(--t-s);color:var(--muted)}
+.eyebrow{font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* encabezado */
+.hero{display:grid;gap:16px;padding-bottom:8px}
+.lead{font-size:var(--t-l);max-width:60ch;color:var(--fg)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fact{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg);display:grid;gap:0}
+.fact .k{font-size:var(--t-xs);color:var(--muted)}
+.fact .v{font-size:var(--t-l);font-weight:700}
+
+/* barra de progreso y pasos */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--paper);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:grid;gap:8px;padding-block:10px 8px}
+.tb-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.tb-title{font-weight:700;font-size:var(--t-s)}
+@media (max-width:520px){.tb-long{display:none}}
+.tb-count{font-size:var(--t-xs);color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .45s ease}
+.steps{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0;padding:2px 0 4px;list-style:none}
+.steps::-webkit-scrollbar{display:none}
+.steps button{font:inherit;font-size:var(--t-xs);display:flex;align-items:center;gap:6px;white-space:nowrap;border:0;background:transparent;color:var(--muted);padding:6px 10px 6px 6px;border-radius:999px;cursor:pointer}
+.steps .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:12px;border:2px solid var(--line);background:var(--paper);color:var(--muted);flex:none;transition:background .2s,border-color .2s}
+.steps button:hover{color:var(--fg)}
+.steps button.done .dot{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+.steps button[aria-current="step"]{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+.steps button[aria-current="step"] .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+
+main .wrap{padding-block:32px 40px;min-height:60vh;overflow-x:clip}
+section.page{display:grid;gap:18px;min-width:0}
+section.page:focus{outline:none}
+section{display:grid;gap:18px;min-width:0}
+.pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-block:8px 48px}
+.pager .btn{display:inline-flex;align-items:center;gap:8px}
+.pager .next{margin-left:auto}
+.pager small{display:block;font-weight:400;font-size:var(--t-xs);opacity:.85}
+
+/* transición entre páginas */
+@keyframes inR{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-48px)}to{opacity:1;transform:none}}
+@keyframes outL{to{opacity:0;transform:translateX(-48px)}}
+@keyframes outR{to{opacity:0;transform:translateX(48px)}}
+.page.in-r{animation:inR .38s cubic-bezier(.2,.7,.2,1) both}
+.page.in-l{animation:inL .38s cubic-bezier(.2,.7,.2,1) both}
+.page.out-l{animation:outL .2s ease-in both}
+.page.out-r{animation:outR .2s ease-in both}
+@media (prefers-reduced-motion: reduce){.page.in-r,.page.in-l,.page.out-l,.page.out-r{animation:none}.bar span{transition:none}}
+
+/* lo que entregan */
+.deliv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.deliv div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:2px;align-content:start}
+.deliv .tag{margin-bottom:4px}
+.sec-head{display:grid;gap:6px}
+.sec-head .eyebrow{color:var(--accent-ink)}
+.intro{color:var(--muted);max-width:65ch}
+
+/* empieza aquí */
+.start{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;counter-reset:s}
+.start li{list-style:none;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:4px;align-content:start}
+.start li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:var(--t-s);margin-bottom:4px}
+.start .when{font-size:var(--t-xs);color:var(--accent-ink);font-weight:600}
+ol.start{margin:0;padding:0}
+
+/* tarjetas */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.tag{font-family:var(--f-mono);font-weight:600;color:var(--accent-ink);background:var(--accent-soft);border-radius:6px;padding:1px 8px;justify-self:start;font-size:var(--t-s)}
+.card.rule{border-style:dashed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 12px;font-size:var(--t-s)}
+
+.box{border-left:4px solid var(--info);background:var(--info-soft);padding:14px 16px;border-radius:0 10px 10px 0;display:grid;gap:6px}
+.box.warn{border-color:var(--warn-line);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+
+/* reporte gráfico (ilustración) */
+.report{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:18px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px}
+.report svg{width:100%;height:auto;max-width:100%;display:block}
+@media (max-width:620px){.report{grid-template-columns:1fr}}
+
+/* laboratorio K-Anonymity */
+.lab{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:22px}
+.step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start}
+.step>.num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--f-mono)}
+.step>div{display:grid;gap:8px;min-width:0}
+.pwbtn{font:inherit;font-family:var(--f-mono);font-size:var(--t-s);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:8px;padding:5px 10px;cursor:pointer}
+.pwbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+.hash{font-family:var(--f-mono);font-variant-ligatures:none;font-size:clamp(13px,2.6vw,17px);word-break:break-all;background:var(--cell);padding:10px 12px;border-radius:8px}
+.hash .pre{background:var(--accent);color:#fff;border-radius:3px;padding:0 2px}
+.hash .suf{color:var(--muted)}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.zone{border-radius:10px;padding:12px;display:grid;gap:4px;min-width:0}
+.zone.net{background:var(--accent-soft);border:1px solid var(--accent)}
+.zone.local{background:var(--ok-soft);border:1px solid var(--ok)}
+.zone .lbl{font-size:var(--t-xs);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.zone .val{font-family:var(--f-mono);word-break:break-all;font-size:var(--t-s)}
+.resp{font-family:var(--f-mono);font-variant-ligatures:none;font-size:13px;background:var(--cell);border-radius:8px;padding:8px 0;max-height:280px;overflow:auto}
+.resp div{padding:1px 12px;white-space:nowrap}
+.resp .cur{background:var(--hl)}
+.resp .found{background:var(--ok-soft);color:var(--ok);font-weight:600;outline:2px solid var(--ok)}
+.resp .pad{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:inherit;font-weight:600;border:0;background:var(--accent);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent-ink);border:1px solid var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.counter{font-family:var(--f-mono);font-size:var(--t-s);color:var(--muted)}
+
+/* celdas tipo Colab */
+.cellcap{font-weight:600}
+.cell{display:grid;grid-template-columns:40px minmax(0,1fr);background:var(--cell);border-radius:8px;border:1px solid var(--line)}
+.cell .gut{color:var(--gutter);font-family:var(--f-mono);font-size:var(--t-xs);padding:12px 0 0 10px}
+.cell pre{margin:0;padding:12px 14px 12px 0;overflow-x:auto;font-family:var(--f-mono);font-variant-ligatures:none;font-size:14px;line-height:1.55}
+.cell .cm{color:var(--gutter)} .cell .kw{color:var(--info);font-weight:600} .cell .st{color:var(--ok)}
+.steps-code{display:grid;gap:10px}
+
+/* tablas */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:var(--t-s)}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--cell);font-weight:600}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:var(--t-xs);font-weight:600;border-radius:999px;padding:2px 10px;justify-self:start}
+.pill.yes{background:var(--ok-soft);color:var(--ok)}
+.pill.no{background:var(--no-soft);color:var(--no)}
+
+/* calendario */
+.timeline{display:grid;border-left:3px solid var(--line);margin-left:8px}
+.ev{position:relative;padding:0 0 20px 22px;display:grid;gap:2px}
+.ev::before{content:"";position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.ev .d{font-weight:600}
+.ev.key::before{background:var(--accent)}
+
+/* reparto de puntos */
+.split100{display:grid;grid-template-columns:40fr 60fr;gap:6px}
+.split100 > div{border-radius:10px;padding:12px;color:#fff;display:grid;gap:2px;min-width:0}
+.split100 .t{background:var(--team)} .split100 .i{background:var(--indiv)}
+.split100 .big{font-size:var(--t-xl);font-weight:700}
+:root[data-theme="dark"] .split100 > div{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .split100 > div{color:#15171a}}
+
+/* columnas de calificación */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;align-items:start}
+.col{border-radius:12px;border:2px solid var(--line);background:var(--paper);overflow:hidden;min-width:0}
+.col.t{border-color:var(--team)} .col.i{border-color:var(--indiv)}
+.col-h{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;color:#fff;font-weight:600}
+.col.t .col-h{background:var(--team)} .col.i .col-h{background:var(--indiv)}
+.col-h .big{font-size:var(--t-xl);font-weight:700}
+:root[data-theme="dark"] .col-h{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .col-h{color:#15171a}}
+.col-b{display:grid}
+.asp{border:0;border-radius:0;border-bottom:1px solid var(--line);background:transparent}
+.asp:last-child{border-bottom:0}
+.asp>summary{display:flex;justify-content:space-between;gap:10px;align-items:baseline;list-style:none;padding:12px 16px}
+.asp>summary::-webkit-details-marker{display:none}
+.asp>summary .nm::before{content:"▸ ";color:var(--accent)}
+.asp[open]>summary .nm::before{content:"▾ "}
+.asp>summary .pt{font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+.asp-b{padding:0 16px 16px;display:grid;gap:12px}
+.lvl3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.lvl3 div{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:var(--t-xs);display:grid;gap:2px;align-content:start}
+.lvl3 b{font-size:var(--t-xs)}
+.lvl3 .lr{font-family:var(--f-mono);color:var(--muted)}
+.lvl3 div:last-child{border-color:var(--ok);background:var(--ok-soft)}
+@media (max-width:420px){.lvl3{grid-template-columns:1fr}}
+.sub-c{display:grid;gap:6px}
+.sub-c h5{margin:0;font-size:var(--t-s);font-weight:600}
+.sim>summary{color:var(--accent-ink)}
+.sim-b{padding:0 16px 16px;display:grid;gap:16px}
+/* rúbrica-calculadora */
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.howto div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:2px}
+.group{display:grid;gap:12px}
+.group-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--line);padding-bottom:6px}
+.group-h.t{border-color:var(--team)} .group-h.i{border-color:var(--indiv)}
+.group-h .sub{font-family:var(--f-mono);font-weight:600;font-variant-numeric:tabular-nums}
+.crit{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.crit-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.crit-top .what{font-size:var(--t-s);color:var(--muted)}
+.score{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:var(--t-l);white-space:nowrap}
+.score small{font-size:var(--t-s);color:var(--muted);font-weight:400}
+.crit input[type=range]{width:100%;accent-color:var(--accent)}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lv{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:var(--t-s);display:grid;gap:2px;align-content:start;opacity:.55;transition:opacity .15s,border-color .15s,background .15s}
+.lv .ln{font-weight:600;font-size:var(--t-xs)}
+.lv .lr{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted)}
+.lv.on{opacity:1;border-color:var(--accent);background:var(--accent-soft)}
+@media (max-width:560px){.levels{grid-template-columns:1fr}.lv:not(.on){display:none}}
+.total{position:sticky;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:4;background:var(--paper);border:2px solid var(--accent);border-radius:12px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.total .big{font-size:var(--t-xl);font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent-ink)}
+.total .warn{flex-basis:100%;font-size:var(--t-s);color:var(--no)}
+
+/* banco de preguntas */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;font-size:var(--t-s);border:1px solid var(--line);background:var(--paper);color:var(--fg);border-radius:999px;padding:5px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.qlist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.qlist li{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px}
+.qlist .who{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--accent-ink);font-weight:600;padding-top:3px}
+
+.prompt{position:relative}
+.prompt pre{margin:0;background:var(--cell);border-radius:8px;padding:48px 14px 14px;white-space:pre-wrap;font-family:var(--f-mono);font-variant-ligatures:none;font-size:14px;line-height:1.55}
+.copy{position:absolute;top:8px;right:8px}
+
+details{background:var(--paper);border:1px solid var(--line);border-radius:10px}
+details>summary{cursor:pointer;padding:12px 16px;font-weight:600}
+details dl{margin:0;padding:0 16px 16px;display:grid;gap:10px}
+details dt{font-weight:600}
+details dd{margin:0;color:var(--muted);font-size:var(--t-s)}
+
+ul.clean{margin:0;padding-left:20px;display:grid;gap:6px}
+footer{color:var(--muted);font-size:var(--t-s);border-top:1px solid var(--line)}
+footer .wrap{padding-block:20px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-row"><span class="tb-title"><span class="tb-long">Evaluador de contraseñas · </span>Proyecto Integrador</span><span class="tb-count" id="tb-count">Paso 2 de 9</span></div>
+    <div class="bar" role="progressbar" aria-label="Avance en la guía" aria-valuemin="0" aria-valuemax="100" id="bar" aria-valuenow="22"><span id="bar-fill" style="width: 22%;"></span></div>
+    <ol class="steps" id="steps" aria-label="Pasos de la guía"><li><button type="button" class="done"><span class="dot">1</span><span>Inicio</span></button></li><li><button type="button" aria-current="step"><span class="dot">2</span><span>Qué construyen</span></button></li><li><button type="button"><span class="dot">3</span><span>K-Anonymity</span></button></li><li><button type="button"><span class="dot">4</span><span>Código base</span></button></li><li><button type="button"><span class="dot">5</span><span>Uso de IA</span></button></li><li><button type="button"><span class="dot">6</span><span>Fechas y entrega</span></button></li><li><button type="button"><span class="dot">7</span><span>Calificación</span></button></li><li><button type="button"><span class="dot">8</span><span>Microdefensa</span></button></li><li><button type="button"><span class="dot">9</span><span>Si algo falla</span></button></li></ol>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<section id="inicio" class="page" data-label="Inicio" tabindex="-1" hidden="">
+  <div class="hero">
+    <span class="eyebrow">Programación I · V2213 · CUGDL · Proyecto Integrador</span>
+    <h1>Evaluador de seguridad de contraseñas</h1>
+    <p class="lead">En equipo, van a construir en Colab un programa que te dice si una contraseña <b>ya se filtró</b> en internet y <b>qué tan fuerte es</b>. Es la misma técnica que usan servicios reales, como el gestor de contraseñas 1Password.</p>
+    <div class="facts">
+      <div class="fact"><span class="k">Equipos</span><span class="v">3 o 4 personas</span></div>
+      <div class="fact"><span class="k">Vale</span><span class="v">40% del curso</span></div>
+      <div class="fact"><span class="k">Tu nota depende de ti</span><span class="v">60% individual</span></div>
+      <div class="fact"><span class="k">Presentas</span><span class="v">24 o 26 nov</span></div>
+    </div>
+  </div>
+  <div class="sec-head"><h2>El proyecto en 4 pasos</h2></div>
+  <ol class="start">
+    <li><span class="when">Ya</span><h4>Formen equipo y repártanse el trabajo</h4><p class="note">Cada quien elige al menos una parte de F1 a F5. Esa parte será tuya.</p></li>
+    <li><span class="when">Martes 10 nov</span><h4>Entiende la técnica y diseña tu parte</h4><p class="note">Ves K-Anonymity en el laboratorio y dibujas en FigJam el diagrama de flujo de tu parte.</p></li>
+    <li><span class="when">Desde el 17 nov</span><h4>Programa tu parte con IA</h4><p class="note">Construyes tu parte con Gemini, anotas qué hiciste con lo que te dio y armas con tu equipo la documentación.</p></li>
+    <li><span class="when">24 o 26 nov</span><h4>Presenten y defiende tu parte</h4><p class="note">Demo del equipo y microdefensa individual de tu parte.</p></li>
+  </ol>
+</section>
+
+<section id="construir" class="page in-r" data-label="Qué construyen" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Qué construyen</span><h2>Lo que su equipo va a entregar</h2></div>
+  <p class="intro">Al final, cada equipo entrega tres cosas. En esta página está el detalle del programa; las otras dos se explican en <a href="https://mi.cugdl.udg.mx/pluginfile.php/48557/mod_resource/content/1/Proyecto_final.html#fechas">Fechas y entrega</a>.</p>
+  <div class="deliv">
+    <div><span class="tag">.ipynb</span><h4>El programa</h4><p class="note">Un notebook de Colab que hace las 6 partes de abajo.</p></div>
+    <div><span class="tag">.png</span><h4>El reporte gráfico</h4><p class="note">La imagen con gráficas que crea el programa (F4).</p></div>
+    <div><span class="tag">PDF</span><h4>La documentación</h4><p class="note">Incluye el <b>diagrama de flujo</b>: cada quien dibuja el de su parte y juntos forman el del programa.</p></div>
+  </div>
+  <h3>Las 6 partes del programa</h3>
+  <p class="intro">Ustedes deciden cómo programarlo. Lo obligatorio es que haga estas seis cosas. <b>Cada integrante es autor de al menos una de F1 a F5</b>: programa esa parte, dibuja su diagrama de flujo y la defiende.</p>
+  <div class="grid">
+    <div class="card"><span class="tag">F1</span><h3>Consulta de filtraciones</h3><p>Pregunta a Have I Been Pwned si la contraseña ya se filtró, <b>sin enviarla</b>. Parten del código base y el autor lo convierte en una función que no se detiene si la consulta falla.</p></div>
+    <div class="card"><span class="tag">F2</span><h3>Evaluación de fortaleza</h3><p>Da un puntaje de 0 a 100 y un nivel: Débil, Media o Fuerte. Revisa longitud, mayúsculas, minúsculas, números y símbolos, <b>más una regla que tú inventas</b>.</p></div>
+    <div class="card"><span class="tag">F3</span><h3>Historial</h3><p>Guarda el resultado de cada contraseña revisada mientras el programa está abierto, <b>sin guardar la contraseña</b>. Cuenta cuántas hay de cada nivel y cuántas se filtraron.</p></div>
+    <div class="card"><span class="tag">F4</span><h3>Reporte gráfico</h3><p>Al terminar, crea una imagen <code>reporte_analisis.png</code> con gráficas que resumen el historial. Mira el ejemplo abajo.</p></div>
+    <div class="card"><span class="tag">F5</span><h3>Programa principal</h3><p>Pide contraseñas <b>una por una</b> hasta que el usuario escriba <i>salir</i>. Si falla la red o llega algo vacío, avisa y sigue.</p></div>
+    <div class="card rule"><span class="tag">F6</span><h3>Regla de seguridad</h3><p>Para probar, entregar y presentar usen <b>solo la <a href="https://mi.cugdl.udg.mx/pluginfile.php/48557/mod_resource/content/1/Proyecto_final.html#lista-prueba">lista de prueba</a></b>. Le toca a todo el equipo.</p></div>
+  </div>
+
+  <div class="report">
+    <svg viewBox="0 0 360 200" role="img" aria-label="Ejemplo de reporte gráfico con dos gráficas de barras">
+      <rect x="1" y="1" width="358" height="198" rx="8" fill="var(--bg)" stroke="var(--line)"></rect>
+      <text x="16" y="24" font-size="11" font-weight="600" fill="var(--fg)" font-family="Poppins, sans-serif">Contraseñas por nivel</text>
+      <line x1="16" y1="170" x2="168" y2="170" stroke="var(--muted)"></line>
+      <rect x="26" y="70" width="34" height="100" fill="var(--no)"></rect>
+      <rect x="74" y="110" width="34" height="60" fill="var(--warn-line)"></rect>
+      <rect x="122" y="140" width="34" height="30" fill="var(--ok)"></rect>
+      <text x="43" y="186" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="Poppins, sans-serif">Débil</text>
+      <text x="91" y="186" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="Poppins, sans-serif">Media</text>
+      <text x="139" y="186" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="Poppins, sans-serif">Fuerte</text>
+      <text x="192" y="24" font-size="11" font-weight="600" fill="var(--fg)" font-family="Poppins, sans-serif">¿Se filtró?</text>
+      <line x1="192" y1="170" x2="344" y2="170" stroke="var(--muted)"></line>
+      <rect x="210" y="80" width="46" height="90" fill="var(--accent)"></rect>
+      <rect x="280" y="130" width="46" height="40" fill="var(--info)"></rect>
+      <text x="233" y="186" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="Poppins, sans-serif">Sí</text>
+      <text x="303" y="186" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="Poppins, sans-serif">No</text>
+    </svg>
+    <div style="display:grid;gap:8px;min-width:0">
+      <h3>¿Qué es el reporte gráfico?</h3>
+      <p>A veces lo verás como <b>dashboard</b>. <b>No es un menú</b>: es una <b>imagen con gráficas</b> que resume lo que pasó en la sesión, hecha con matplotlib y guardada como <code>.png</code>.</p>
+      <p class="note">Para el puntaje máximo: dos o más gráficas con títulos y ejes, y una que compare tu evaluación de fortaleza (F2) con el resultado de las filtraciones (F1).</p>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:10px;min-width:0">
+    <h3>Si F4 es tu parte: un punto de partida</h3>
+    <p>Puedes usar la librería que quieras, siempre que el resultado sea la imagen <code>.png</code>. La más sencilla para empezar es <b>matplotlib</b>: ya viene en Colab y guarda la imagen con una línea. Este ejemplo hace una gráfica de barras con datos inventados:</p>
+    <div class="cell"><span class="gut">[ ]</span><pre><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+niveles = [<span class="st">"Débil"</span>, <span class="st">"Media"</span>, <span class="st">"Fuerte"</span>]
+cantidades = [5, 3, 2]          <span class="cm"># datos de ejemplo: los tuyos salen del historial (F3)</span>
+
+plt.bar(niveles, cantidades)
+plt.title(<span class="st">"Contraseñas por nivel"</span>)
+plt.xlabel(<span class="st">"Nivel"</span>)
+plt.ylabel(<span class="st">"Cantidad"</span>)
+plt.savefig(<span class="st">"reporte_analisis.png"</span>)   <span class="cm"># primero guardar...</span>
+plt.show()                             <span class="cm"># ...luego mostrar</span></pre></div>
+    <div class="box warn"><p><b>Ojo con el orden:</b> <code>plt.savefig()</code> va <b>antes</b> de <code>plt.show()</code>. Si lo pones después, se guarda una imagen en blanco.</p></div>
+    <p class="note">Te falta: usar los datos reales del historial, agregar la segunda gráfica y la comparación entre F2 y F1. Ahí es donde entra tu trabajo.</p>
+  </div>
+
+  <div>
+    <h3 style="margin-bottom:8px">Ideas para tu regla propia (F2)</h3>
+    <div class="chips">
+      <span class="chip">Sin secuencias como <code>123</code> o <code>abc</code></span>
+      <span class="chip">Sin el mismo carácter 3 veces seguidas</span>
+      <span class="chip">Que no esté en una lista de palabras comunes</span>
+      <span class="chip">Puntos extra desde 12 caracteres</span>
+    </div>
+  </div>
+
+  <div class="box warn">
+    <h4>¿Puedo revisar una contraseña mía?</h4>
+    <p>Sí, si cumples tres condiciones: la escribes con <code>getpass</code> para que no se vea en pantalla, nunca la imprimes ni la guardas, y nunca la pegas en Gemini. En lo que entregas y presentas, solo usa la lista de prueba.</p>
+  </div>
+
+  <div class="card" id="lista-prueba" style="gap:12px">
+    <h3>Lista de contraseñas de prueba</h3>
+    <p class="note">Son inventadas para la clase. Úsalas para probar, entregar y presentar. Hay débiles, medias y fuertes, para que tu programa tenga de todo.</p>
+    <div class="chips" id="lp-chips"><span class="chip mono">qwerty</span><span class="chip mono">123456</span><span class="chip mono">password</span><span class="chip mono">iloveyou</span><span class="chip mono">futbol2024</span><span class="chip mono">Mazapan123</span><span class="chip mono">contraseña</span><span class="chip mono">Tigre_Azul#58</span><span class="chip mono">Nopal-Verde-Cielo-91</span><span class="chip mono">x9$Lm!q2Rz7&amp;vB</span></div>
+    <div class="cell"><span class="gut">[ ]</span><pre id="lp-code">CONTRASENAS_PRUEBA = [
+    "qwerty",
+    "123456",
+    "password",
+    "iloveyou",
+    "futbol2024",
+    "Mazapan123",
+    "contraseña",
+    "Tigre_Azul#58",
+    "Nopal-Verde-Cielo-91",
+    "x9$Lm!q2Rz7&amp;vB",
+]</pre></div>
+    <div class="row"><button class="btn" id="lp-copy" type="button">Copiar como lista de Python</button><span class="note" id="lp-msg" aria-live="polite"></span></div>
+  </div>
+</section>
+
+<section id="k-anonymity" class="page" data-label="K-Anonymity" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">La técnica</span><h2>Cómo preguntar sin revelar tu contraseña</h2></div>
+  <p class="intro">Have I Been Pwned guarda miles de millones de contraseñas filtradas. El truco, llamado <b>K-Anonymity</b>, es preguntarle si la tuya está ahí sin decirle cuál es. Pruébalo con una contraseña de la lista.</p>
+  <div class="lab">
+    <div class="step"><span class="num">1</span><div>
+      <h4>Elige una contraseña de prueba</h4>
+      <div class="row" id="pwlist" role="group" aria-label="Contraseñas de prueba"><button type="button" class="pwbtn" aria-pressed="true">qwerty</button><button type="button" class="pwbtn" aria-pressed="false">123456</button><button type="button" class="pwbtn" aria-pressed="false">password</button><button type="button" class="pwbtn" aria-pressed="false">iloveyou</button><button type="button" class="pwbtn" aria-pressed="false">futbol2024</button><button type="button" class="pwbtn" aria-pressed="false">Mazapan123</button><button type="button" class="pwbtn" aria-pressed="false">contraseña</button><button type="button" class="pwbtn" aria-pressed="false">Tigre_Azul#58</button><button type="button" class="pwbtn" aria-pressed="false">Nopal-Verde-Cielo-91</button><button type="button" class="pwbtn" aria-pressed="false">x9$Lm!q2Rz7&amp;vB</button></div>
+    </div></div>
+    <div class="step"><span class="num">2</span><div>
+      <h4>Se convierte en un hash SHA-1</h4>
+      <div class="hash" id="hashview" aria-live="polite"><span class="pre">B1B37</span><span class="suf">73A05C0ED0176787A4F1574FF0075F7521E</span></div>
+      <p class="note">Un hash es como una huella: la misma contraseña siempre da la misma, y de la huella no se puede sacar la contraseña.</p>
+    </div></div>
+    <div class="step"><span class="num">3</span><div>
+      <h4>Se parte en dos</h4>
+      <div class="split">
+        <div class="zone net"><span class="lbl">Viaja por internet</span><span class="val" id="pfx">B1B37</span><span class="note mono" id="url">api.pwnedpasswords.com/range/B1B37</span></div>
+        <div class="zone local"><span class="lbl">Se queda en tu computadora</span><span class="val" id="sfx">73A05C0ED0176787A4F1574FF0075F7521E</span></div>
+      </div>
+      <p class="note">Cientos de hashes empiezan con esos mismos 5 caracteres. El servidor no puede saber cuál es el tuyo: te escondes entre cientos.</p>
+    </div></div>
+    <div class="step"><span class="num">4</span><div>
+      <h4>El servidor responde con todos los que empiezan igual, y tu programa busca el tuyo</h4>
+      <div class="row">
+        <button class="btn" id="go" type="button">Buscar mi hash</button>
+        <button class="btn ghost" id="reset" type="button">Reiniciar</button>
+        <span class="counter" id="cnt">Comparaciones: 0</span>
+      </div>
+      <div class="resp" id="resp" aria-label="Respuesta de ejemplo"><div id="ln0" class="">0F29436D87A1CBE50F29436D87A1CBE50F2:6</div><div id="ln1" class="pad">1CBE50F29436D87A1CBE50F29436D87A1CB:0</div><div id="ln2" class="">1CBE50F29436D87A1CBE50F29436D87A1CB:19</div><div id="ln3" class="">29436D87A1CBE50F29436D87A1CBE50F294:13</div><div id="ln4" class="">36D87A1CBE50F29436D87A1CBE50F29436D:31</div><div id="ln5" class="">436D87A1CBE50F29436D87A1CBE50F29436:1</div><div id="ln6" class="">50F29436D87A1CBE50F29436D87A1CBE50F:27</div><div id="ln7" class="">6D87A1CBE50F29436D87A1CBE50F29436D8:5</div><div id="ln8" class="">73A05C0ED0176787A4F1574FF0075F7521E:???</div><div id="ln9" class="">7A1CBE50F29436D87A1CBE50F29436D87A1:31</div><div id="ln10" class="">87A1CBE50F29436D87A1CBE50F29436D87A:33</div><div id="ln11" class="">9436D87A1CBE50F29436D87A1CBE50F2943:3</div><div id="ln12" class="">A1CBE50F29436D87A1CBE50F29436D87A1C:37</div><div id="ln13" class="">BE50F29436D87A1CBE50F29436D87A1CBE5:31</div><div id="ln14" class="">CBE50F29436D87A1CBE50F29436D87A1CBE:33</div><div id="ln15" class="">D87A1CBE50F29436D87A1CBE50F29436D87:3</div><div id="ln16" class="">E50F29436D87A1CBE50F29436D87A1CBE50:37</div><div id="ln17" class="">F29436D87A1CBE50F29436D87A1CBE50F29:15</div></div>
+      <p class="note">Esta respuesta es de ejemplo. La real trae entre 800 y 1,000 líneas, y las que terminan en <code>:0</code> son relleno. Revisar línea por línea hasta encontrarlo se llama <b>búsqueda lineal</b>. El número real de filtraciones lo verás en Colab.</p>
+    </div></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Encriptar</th><th>Hashear (SHA-1)</th></tr></thead>
+    <tbody>
+      <tr><td><b>¿Se puede regresar al original?</b></td><td>Sí, con la llave</td><td><b>No</b></td></tr>
+      <tr><td><b>¿Mismo texto, mismo resultado?</b></td><td>Depende de la llave</td><td><b>Siempre</b></td></tr>
+      <tr><td><b>Para qué sirve</b></td><td>Guardar un secreto y recuperarlo</td><td>Comparar sin conocer el original</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="codigo-base" class="page" data-label="Código base" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Código base</span><h2>Los mismos 4 pasos, en Python</h2></div>
+  <p class="intro">El notebook de Moodle hace esto, una celda por paso. Funciona <b>una vez, con una contraseña y si todo sale bien</b>. No es el proyecto: es el punto de partida de F1.</p>
+  <div class="steps-code">
+    <span class="cellcap">Paso 1 · Calcular el hash</span>
+    <div class="cell"><span class="gut">[ ]</span><pre><span class="kw">import</span> hashlib
+
+password = <span class="st">"qwerty"</span>   <span class="cm"># de la lista de prueba</span>
+hash_completo = hashlib.sha1(password.encode(<span class="st">"utf-8"</span>)).hexdigest().upper()</pre></div>
+    <p class="note"><code>.upper()</code> pasa el hash a mayúsculas porque así responde la API, y <code>"b1b37" == "B1B37"</code> da <code>False</code>.</p>
+
+    <span class="cellcap">Paso 2 · Partir el hash</span>
+    <div class="cell"><span class="gut">[ ]</span><pre>prefijo = hash_completo[:5]
+sufijo = hash_completo[5:]</pre></div>
+
+    <span class="cellcap">Paso 3 · Preguntar a la API</span>
+    <div class="cell"><span class="gut">[ ]</span><pre><span class="kw">import</span> requests
+
+URL_API = <span class="st">"https://api.pwnedpasswords.com/range/"</span>
+ENCABEZADOS = {
+    <span class="st">"User-Agent"</span>: <span class="st">"ProgramacionI-CUGDL-EvaluadorContrasenas"</span>,
+    <span class="st">"Add-Padding"</span>: <span class="st">"true"</span>
+}
+respuesta = requests.get(URL_API + prefijo, headers=ENCABEZADOS, timeout=10)</pre></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Parte</th><th>Para qué está</th></tr></thead>
+      <tbody>
+        <tr><td><code>User-Agent</code></td><td>Le dice a la API qué programa pregunta.</td></tr>
+        <tr><td><code>Add-Padding</code></td><td>Agrega líneas falsas con <code>0</code> para que el tamaño de la respuesta no revele nada.</td></tr>
+        <tr><td><code>timeout=10</code></td><td>Si en 10 segundos no responde, Python deja de esperar y marca error.</td></tr>
+      </tbody>
+    </table></div>
+
+    <span class="cellcap">Paso 4 · Buscar tu sufijo, en tu computadora</span>
+    <div class="cell"><span class="gut">[ ]</span><pre>veces = 0
+<span class="kw">for</span> linea <span class="kw">in</span> respuesta.text.splitlines():
+    sufijo_api, conteo = linea.split(<span class="st">":"</span>)
+    <span class="kw">if</span> sufijo_api == sufijo:
+        veces = int(conteo)
+        <span class="kw">break</span></pre></div>
+  </div>
+  <div class="box ok">
+    <h4>Si F1 es tu parte, esto te toca a ti</h4>
+    <ul class="clean">
+      <li>Pon los pasos dentro de <b>una o más funciones</b> que tu equipo pueda llamar.</li>
+      <li>Que devuelva <b>cuántas veces</b> se filtró, <code>0</code> si no aparece y <code>-1</code> si no se pudo consultar.</li>
+      <li>Que el programa <b>no se detenga</b> si la API no responde, tarda o marca error.</li>
+      <li>Pruébalo con <b>todas</b> las contraseñas de la lista.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ia" class="page" data-label="Uso de IA" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Uso de IA</span><h2>Cuándo sí y cuándo no</h2></div>
+  <div class="grid">
+    <div class="card"><span class="note">Fase 1 · Diseño</span><span class="pill no">Sin IA</span><p>Dibujas en FigJam el diagrama de flujo de tu parte, sin usar su IA. Es tu plan, y lo vas a defender.</p></div>
+    <div class="card"><span class="note">Fase 2 · Programación</span><span class="pill yes">Con IA</span><p>Programa con Gemini. Anota qué le pediste y qué decidiste tú: lo vas a contar en la documentación.</p></div>
+    <div class="card"><span class="note">Fase 3 · Presentación</span><span class="pill no">Sin IA</span><p>Explicas tu código sin ayuda.</p></div>
+  </div>
+  <div class="box"><p><b>La IA puede escribir el código, pero no puede presentar por ti.</b> Respondes por cada línea que entregas.</p></div>
+</section>
+
+<section id="fechas" class="page" data-label="Fechas y entrega" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Fechas y entrega</span><h2>Calendario</h2></div>
+  <div class="timeline">
+    <div class="ev"><span class="d">Martes 10 de noviembre · laboratorio</span><span>K-Anonymity con el código base, reparto de partes y diagrama de flujo de tu parte.</span></div>
+    <div class="ev"><span class="d">Martes 17 de noviembre · laboratorio</span><span>Programar con IA.</span></div>
+    <div class="ev"><span class="d">Del 17 de noviembre al día que presenten</span><span>Terminan el programa, el reporte gráfico y la documentación.</span></div>
+    <div class="ev key"><span class="d">Martes 24 y jueves 26 de noviembre</span><span>Presentación del equipo y microdefensa de cada integrante. <b>Ustedes eligen el día</b> cuando terminen. Caben 4 equipos por día: se apartan en orden de inscripción.</span></div>
+    <div class="ev"><span class="d">Martes 1 de diciembre</span><span>Calificaciones. A primera hora presentan solo los equipos rezagados.</span></div>
+    <div class="ev"><span class="d">Jueves 3 de diciembre</span><span>Aclaraciones de calificación.</span></div>
+  </div>
+  <h2 style="margin-top:12px">Qué suben a Moodle</h2>
+  <p class="intro">Una sola vez. Un integrante lo sube <b>antes de presentar</b>, a más tardar el 26 de noviembre. Si son rezagados, el 1 de diciembre antes de presentar.</p>
+  <div class="grid">
+    <div class="card"><span class="tag">PDF</span><h3>Documentación</h3><ul class="clean"><li>Integrantes y qué parte hizo cada quien.</li><li>El <b>diagrama de flujo</b> del programa, con la parte de cada integrante.</li><li>Cómo funciona el programa.</li><li><b>Una sección por persona</b>: tu proceso con IA y tu conclusión.</li></ul></div>
+    <div class="card"><span class="tag">.ipynb</span><h3>Notebook completo</h3><p>Una sección por parte, con el nombre de su autor.</p></div>
+    <div class="card"><span class="tag">.png</span><h3>Reporte gráfico</h3><p>La imagen <code>reporte_analisis.png</code>.</p></div>
+  </div>
+</section>
+
+<section id="calificacion" class="page" data-label="Calificación" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Calificación</span><h2>Cómo se califica</h2></div>
+  <p class="intro">El proyecto vale <b>100 puntos</b>, que equivalen al <b>40% del curso</b>. Una parte se califica por equipo y otra es solo tuya. Toca cada aspecto para ver qué se pide.</p>
+  <div class="cols">
+    <div class="col t"><div class="col-h"><span>Equipo</span><span class="big">40 pts</span></div><div class="col-b" id="col-t"><details class="asp"><summary><span class="nm">Funcionalidad</span><span class="pt">20 pts</span></summary><div class="asp-b"><p class="note">Se revisa en la presentación</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–8 pts</span><span>No corre o se detiene con error.</span></div><div><b>Mínimo</b><span class="lr">9–15 pts</span><span>Revisa contraseñas, consulta la API y aguanta una entrada vacía.</span></div><div><b>Óptimo</b><span class="lr">16–20 pts</span><span>Cumple F1 a F6. Maneja falla de red, entradas inválidas y salir sin detenerse.</span></div></div></div></details><details class="asp"><summary><span class="nm">Reporte gráfico</span><span class="pt">10 pts</span></summary><div class="asp-b"><p class="note">La imagen reporte_analisis.png</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–4 pts</span><span>No se genera la imagen.</span></div><div><b>Mínimo</b><span class="lr">5–7 pts</span><span>Una gráfica que se entiende.</span></div><div><b>Óptimo</b><span class="lr">8–10 pts</span><span>Dos o más gráficas con título y ejes, y una que compara F2 con F1.</span></div></div></div></details><details class="asp"><summary><span class="nm">Documentación y orden del código</span><span class="pt">10 pts</span></summary><div class="asp-b"><p class="note">El PDF y el notebook</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–4 pts</span><span>Falta el diagrama o no se sabe quién hizo qué.</span></div><div><b>Mínimo</b><span class="lr">5–7 pts</span><span>Integrantes, autores de cada parte y diagrama de flujo.</span></div><div><b>Óptimo</b><span class="lr">8–10 pts</span><span>Además, el código va en secciones por autor, sin repetir funciones y con nombres claros.</span></div></div></div></details></div></div>
+    <div class="col i"><div class="col-h"><span>Individual</span><span class="big">60 pts</span></div><div class="col-b" id="col-i"><details class="asp"><summary><span class="nm">Tu sección personal</span><span class="pt">30 pts</span></summary><div class="asp-b"><div class="sub-c"><h5>Tu proceso con IA · 20 pts</h5><p class="note">Qué le pediste a la IA, qué te dio y qué hiciste con eso: lo usaste, lo cambiaste o lo descartaste. No hace falta anotar todos los prompts.</p><div class="lvl3"><div><b>Falta</b><span class="lr">0–5 pts</span><span>No lo cuentas.</span></div><div><b>Parcial</b><span class="lr">6–14 pts</span><span>Lo cuentas muy en general, o no se distingue qué hizo la IA y qué hiciste tú.</span></div><div><b>Completo</b><span class="lr">15–20 pts</span><span>Se entiende qué hizo la IA, qué hiciste tú y cómo llegaste al resultado.</span></div></div></div><div class="sub-c"><h5>Conclusión · 10 pts</h5><p class="note">Lo que te llevas del proyecto</p><div class="lvl3"><div><b>Falta</b><span class="lr">0–2 pts</span><span>No hay.</span></div><div><b>Parcial</b><span class="lr">3–7 pts</span><span>Una línea genérica.</span></div><div><b>Completo</b><span class="lr">8–10 pts</span><span>Qué aprendiste y qué harías distinto.</span></div></div></div></div></details><details class="asp"><summary><span class="nm">Tu microdefensa</span><span class="pt">30 pts</span></summary><div class="asp-b"><div class="sub-c"><h5>Lees tu código · 10 pts</h5><p class="note">Explicas tu parte línea por línea</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–5 pts</span><span>No sigues el flujo de tu parte.</span></div><div><b>En desarrollo</b><span class="lr">6–8 pts</span><span>Explicas en general, pero te pierdes en el detalle.</span></div><div><b>Logrado</b><span class="lr">9–10 pts</span><span>Recorres línea por línea y dices para qué sirve cada función.</span></div></div></div><div class="sub-c"><h5>Predices qué pasa · 10 pts</h5><p class="note">Con una entrada que la profesora elige</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–5 pts</span><span>No anticipas qué saldrá.</span></div><div><b>En desarrollo</b><span class="lr">6–8 pts</span><span>Aciertas en casos simples, fallas en los raros.</span></div><div><b>Logrado</b><span class="lr">9–10 pts</span><span>Predices la salida y qué pasa con errores o entradas inesperadas.</span></div></div></div><div class="sub-c"><h5>Justificas tus decisiones · 10 pts</h5><p class="note">Por qué así y qué hizo la IA</p><div class="lvl3"><div><b>Insuficiente</b><span class="lr">0–5 pts</span><span>No sabes por qué está hecho así ni qué hizo la IA.</span></div><div><b>En desarrollo</b><span class="lr">6–8 pts</span><span>Das una razón parcial o repites lo que dijo la IA.</span></div><div><b>Logrado</b><span class="lr">9–10 pts</span><span>Explicas por qué así, una opción que descartaste y qué aceptaste, cambiaste o rechazaste de la IA.</span></div></div></div></div></details></div></div>
+  </div>
+  <p class="note">Cada aspecto tiene tres niveles. La profesora decide en qué nivel quedaste y te da un número dentro de ese rango.</p>
+  <details class="sim">
+    <summary>Simula tu nota</summary>
+    <div class="sim-b">
+      <p class="note">Mueve cada barra para ver el nivel y el total. Abre con valores de ejemplo.</p>
+      <div id="calc" style="display:grid;gap:28px"><div class="group"><div class="group-h t"><h3>Equipo</h3><span class="sub"><span id="sub0">33</span> / 40</span></div><div class="crit"><div class="crit-top"><div><h4>Funcionalidad</h4><span class="what">Se revisa en la presentación</span></div>
+      <span class="score"><span id="v-fun">16</span><small> / 20</small></span></div>
+      <input type="range" id="c-fun" min="0" max="20" value="16" aria-label="Funcionalidad, puntos de 0 a 20">
+      <div class="levels"><div class="lv" id="l-fun-0"><span class="ln">Insuficiente</span><span class="lr">0–8 pts</span><span>No corre o se detiene con error.</span></div><div class="lv" id="l-fun-1"><span class="ln">Mínimo</span><span class="lr">9–15 pts</span><span>Revisa contraseñas, consulta la API y aguanta una entrada vacía.</span></div><div class="lv on" id="l-fun-2"><span class="ln">Óptimo</span><span class="lr">16–20 pts</span><span>Cumple F1 a F6. Maneja falla de red, entradas inválidas y salir sin detenerse.</span></div></div></div><div class="crit"><div class="crit-top"><div><h4>Reporte gráfico</h4><span class="what">La imagen reporte_analisis.png</span></div>
+      <span class="score"><span id="v-rep">8</span><small> / 10</small></span></div>
+      <input type="range" id="c-rep" min="0" max="10" value="8" aria-label="Reporte gráfico, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-rep-0"><span class="ln">Insuficiente</span><span class="lr">0–4 pts</span><span>No se genera la imagen.</span></div><div class="lv" id="l-rep-1"><span class="ln">Mínimo</span><span class="lr">5–7 pts</span><span>Una gráfica que se entiende.</span></div><div class="lv on" id="l-rep-2"><span class="ln">Óptimo</span><span class="lr">8–10 pts</span><span>Dos o más gráficas con título y ejes, y una que compara F2 con F1.</span></div></div></div><div class="crit"><div class="crit-top"><div><h4>Documentación y orden del código</h4><span class="what">El PDF y el notebook</span></div>
+      <span class="score"><span id="v-doc">9</span><small> / 10</small></span></div>
+      <input type="range" id="c-doc" min="0" max="10" value="9" aria-label="Documentación y orden del código, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-doc-0"><span class="ln">Insuficiente</span><span class="lr">0–4 pts</span><span>Falta el diagrama o no se sabe quién hizo qué.</span></div><div class="lv" id="l-doc-1"><span class="ln">Mínimo</span><span class="lr">5–7 pts</span><span>Integrantes, autores de cada parte y diagrama de flujo.</span></div><div class="lv on" id="l-doc-2"><span class="ln">Óptimo</span><span class="lr">8–10 pts</span><span>Además, el código va en secciones por autor, sin repetir funciones y con nombres claros.</span></div></div></div></div><div class="group"><div class="group-h i"><h3>Tu sección personal</h3><span class="sub"><span id="sub1">24</span> / 30</span></div><div class="crit"><div class="crit-top"><div><h4>Tu proceso con IA</h4><span class="what">Qué le pediste a la IA, qué te dio y qué hiciste con eso: lo usaste, lo cambiaste o lo descartaste. No hace falta anotar todos los prompts.</span></div>
+      <span class="score"><span id="v-pro">16</span><small> / 20</small></span></div>
+      <input type="range" id="c-pro" min="0" max="20" value="16" aria-label="Tu proceso con IA, puntos de 0 a 20">
+      <div class="levels"><div class="lv" id="l-pro-0"><span class="ln">Falta</span><span class="lr">0–5 pts</span><span>No lo cuentas.</span></div><div class="lv" id="l-pro-1"><span class="ln">Parcial</span><span class="lr">6–14 pts</span><span>Lo cuentas muy en general, o no se distingue qué hizo la IA y qué hiciste tú.</span></div><div class="lv on" id="l-pro-2"><span class="ln">Completo</span><span class="lr">15–20 pts</span><span>Se entiende qué hizo la IA, qué hiciste tú y cómo llegaste al resultado.</span></div></div></div><div class="crit"><div class="crit-top"><div><h4>Conclusión</h4><span class="what">Lo que te llevas del proyecto</span></div>
+      <span class="score"><span id="v-con">8</span><small> / 10</small></span></div>
+      <input type="range" id="c-con" min="0" max="10" value="8" aria-label="Conclusión, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-con-0"><span class="ln">Falta</span><span class="lr">0–2 pts</span><span>No hay.</span></div><div class="lv" id="l-con-1"><span class="ln">Parcial</span><span class="lr">3–7 pts</span><span>Una línea genérica.</span></div><div class="lv on" id="l-con-2"><span class="ln">Completo</span><span class="lr">8–10 pts</span><span>Qué aprendiste y qué harías distinto.</span></div></div></div></div><div class="group"><div class="group-h i"><h3>Tu microdefensa</h3><span class="sub"><span id="sub2">24</span> / 30</span></div><div class="crit"><div class="crit-top"><div><h4>Lees tu código</h4><span class="what">Explicas tu parte línea por línea</span></div>
+      <span class="score"><span id="v-d1">9</span><small> / 10</small></span></div>
+      <input type="range" id="c-d1" min="0" max="10" value="9" aria-label="Lees tu código, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-d1-0"><span class="ln">Insuficiente</span><span class="lr">0–5 pts</span><span>No sigues el flujo de tu parte.</span></div><div class="lv" id="l-d1-1"><span class="ln">En desarrollo</span><span class="lr">6–8 pts</span><span>Explicas en general, pero te pierdes en el detalle.</span></div><div class="lv on" id="l-d1-2"><span class="ln">Logrado</span><span class="lr">9–10 pts</span><span>Recorres línea por línea y dices para qué sirve cada función.</span></div></div></div><div class="crit"><div class="crit-top"><div><h4>Predices qué pasa</h4><span class="what">Con una entrada que la profesora elige</span></div>
+      <span class="score"><span id="v-d2">7</span><small> / 10</small></span></div>
+      <input type="range" id="c-d2" min="0" max="10" value="7" aria-label="Predices qué pasa, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-d2-0"><span class="ln">Insuficiente</span><span class="lr">0–5 pts</span><span>No anticipas qué saldrá.</span></div><div class="lv on" id="l-d2-1"><span class="ln">En desarrollo</span><span class="lr">6–8 pts</span><span>Aciertas en casos simples, fallas en los raros.</span></div><div class="lv" id="l-d2-2"><span class="ln">Logrado</span><span class="lr">9–10 pts</span><span>Predices la salida y qué pasa con errores o entradas inesperadas.</span></div></div></div><div class="crit"><div class="crit-top"><div><h4>Justificas tus decisiones</h4><span class="what">Por qué así y qué hizo la IA</span></div>
+      <span class="score"><span id="v-d3">8</span><small> / 10</small></span></div>
+      <input type="range" id="c-d3" min="0" max="10" value="8" aria-label="Justificas tus decisiones, puntos de 0 a 10">
+      <div class="levels"><div class="lv" id="l-d3-0"><span class="ln">Insuficiente</span><span class="lr">0–5 pts</span><span>No sabes por qué está hecho así ni qué hizo la IA.</span></div><div class="lv on" id="l-d3-1"><span class="ln">En desarrollo</span><span class="lr">6–8 pts</span><span>Das una razón parcial o repites lo que dijo la IA.</span></div><div class="lv" id="l-d3-2"><span class="ln">Logrado</span><span class="lr">9–10 pts</span><span>Explicas por qué así, una opción que descartaste y qué aceptaste, cambiaste o rechazaste de la IA.</span></div></div></div></div></div>
+      <div class="total" aria-live="polite">
+        <span>Proyecto: <span class="big" id="r-pro">81</span> / 100</span>
+        <span>Curso: <span class="big" id="r-cur">32.4</span> / 40</span>
+        <span class="warn" id="r-warn" hidden="">Con Insuficiente en "Lees tu código" y "Predices qué pasa", te toca segunda oportunidad el 1 de diciembre.</span>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section id="defensa" class="page" data-label="Microdefensa" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Microdefensa</span><h2>Defiende tu parte</h2></div>
+  <div class="grid">
+    <div class="card"><h4>Qué pasa</h4><p>Dura 5 minutos. Abres tu parte del notebook. La profesora te pide que señales líneas y que digas qué pasaría con una entrada nueva.</p></div>
+    <div class="card"><h4>Cómo se califica</h4><p>Tres aspectos de 10 puntos: lees tu código, predices qué pasa y justificas tus decisiones. Los niveles están en <a href="https://mi.cugdl.udg.mx/pluginfile.php/48557/mod_resource/content/1/Proyecto_final.html#calificacion">Calificación</a>.</p></div>
+    <div class="card"><h4>Segunda oportunidad</h4><p>Si sacas Insuficiente en los dos primeros, repites el 1 de diciembre. Esa vez, cada aspecto llega como máximo a 8.</p></div>
+  </div>
+  <h3>Banco de preguntas</h3>
+  <p class="note">Estas son las preguntas que te pueden hacer. Elige tu parte para ver las tuyas.</p>
+  <div class="filters" id="qf" role="group" aria-label="Filtrar por parte"><button type="button" data-f="Todas" aria-pressed="true">Ver todas</button><button type="button" data-f="F1" aria-pressed="false">Mi parte es F1</button><button type="button" data-f="F2" aria-pressed="false">Mi parte es F2</button><button type="button" data-f="F3" aria-pressed="false">Mi parte es F3</button><button type="button" data-f="F4" aria-pressed="false">Mi parte es F4</button><button type="button" data-f="F5" aria-pressed="false">Mi parte es F5</button></div>
+  <ul class="qlist" id="ql"><li><span class="who">Todos</span><span>Recorre tu parte: ¿qué recibe, qué hace y qué devuelve?</span></li><li><span class="who">Todos</span><span>Muéstrame algo de la IA que aceptaste, cambiaste o rechazaste. ¿Por qué?</span></li><li><span class="who">Todos</span><span>Si te doy esta entrada nueva, ¿qué sale?</span></li><li><span class="who">F1</span><span>¿Dónde se busca el sufijo, y por qué en tu computadora y no en el servidor?</span></li><li><span class="who">F1</span><span>¿Qué viaja por internet cuando revisas una contraseña?</span></li><li><span class="who">F1</span><span>Si la API no responde, ¿qué devuelve tu función y en qué línea se decide?</span></li><li><span class="who">F1</span><span>¿Por qué el hash se pasa a mayúsculas?</span></li><li><span class="who">F2</span><span>¿Cuál es tu regla propia y por qué la elegiste?</span></li><li><span class="who">F2</span><span>Si agrego otra regla, ¿qué cambias y dónde?</span></li><li><span class="who">F2</span><span>¿Cuántas veces recorres la contraseña? ¿Qué cambia si es del doble de largo?</span></li><li><span class="who">F2</span><span>¿Qué pasa con una contraseña vacía?</span></li><li><span class="who">F3</span><span>¿Qué estructura usaste para guardar los resultados y por qué esa?</span></li><li><span class="who">F3</span><span>¿Por qué no guardas la contraseña?</span></li><li><span class="who">F3</span><span>¿Dónde cuentas cuántas hay de cada nivel?</span></li><li><span class="who">F4</span><span>¿De dónde salen los datos de cada gráfica?</span></li><li><span class="who">F4</span><span>¿Qué pasa si todas son débiles, o si no se revisó ninguna?</span></li><li><span class="who">F4</span><span>¿Por qué elegiste ese tipo de gráfica?</span></li><li><span class="who">F5</span><span>¿Cómo sabe tu programa que el usuario quiere salir?</span></li><li><span class="who">F5</span><span>Si la consulta devuelve -1, ¿qué hace tu programa?</span></li><li><span class="who">F5</span><span>¿Qué pasa con una entrada vacía o con solo espacios?</span></li><li><span class="who">F5</span><span>¿Por qué usar getpass y no input?</span></li></ul>
+</section>
+
+<section id="plan-b" class="page" data-label="Si algo falla" hidden="" tabindex="-1">
+  <div class="sec-head"><span class="eyebrow">Si algo falla</span><h2>Qué hacer si…</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Si…</th><th>Entonces…</th></tr></thead>
+    <tbody>
+      <tr><td>La API no responde el día que presentan</td><td>Presentan y explican su código. Si la falla no es suya (red o servicio caído), no pierden puntos.</td></tr>
+      <tr><td>Gemini no funciona</td><td>Usa gemini.google.com u otro asistente gratuito y menciónalo en tu sección personal.</td></tr>
+      <tr><td>Un compañero falta o abandona</td><td>Avisen a la profesora. Pongan en su lugar una función simulada, que devuelve un valor fijo. El equipo no pierde esos puntos y tu nota individual no cambia.</td></tr>
+      <tr><td>Su equipo queda de 2</td><td>Una persona hace F3 y F4, y el reporte gráfico solo necesita una gráfica para el máximo.</td></tr>
+      <tr><td>Faltas el día que presentas</td><td>Presentas el 1 de diciembre a primera hora. Es la última fecha.</td></tr>
+    </tbody>
+  </table></div>
+  <details>
+    <summary>Glosario rápido</summary>
+    <dl>
+      <dt>API</dt><dd>Un servicio al que tu programa le hace preguntas por internet y que responde con datos.</dd>
+      <dt>Hash (SHA-1)</dt><dd>Una huella de 40 caracteres que sale de un texto. No se puede regresar al texto original.</dd>
+      <dt>Prefijo y sufijo</dt><dd>Los primeros 5 caracteres del hash y los 35 restantes.</dd>
+      <dt>Reporte gráfico (dashboard)</dt><dd>Una imagen con gráficas que resume los resultados de la sesión.</dd>
+      <dt><code>getpass</code></dt><dd>Una forma de pedir texto en Python sin que se vea en pantalla mientras lo escribes.</dd>
+      <dt>Función simulada</dt><dd>Una función con el nombre correcto que devuelve un valor fijo, para probar tu parte sin esperar la de otro.</dd>
+    </dl>
+  </details>
+</section>
+
+</div></main>
+<div class="wrap"><nav class="pager" aria-label="Cambiar de página">
+  <button class="btn ghost" id="prev" type="button">← <span><small>Anterior</small><span id="prev-l">Inicio</span></span></button>
+  <button class="btn next" id="next" type="button"><span><small>Siguiente</small><span id="next-l">K-Anonymity</span></span> →</button>
+</nav></div>
+<footer><div class="wrap">Programación I (V2213) · CUGDL · Proyecto Integrador de la Unidad 4 · Uso de IA bajo el marco SEIA 3</div></footer>
+
+<script>
+(function(){
+/* ---------- SHA-1 (UTF-8) ---------- */
+function sha1(str){
+  const bytes=new TextEncoder().encode(str);
+  const ml=bytes.length*8;
+  const total=Math.ceil((bytes.length+1+8)/64)*64;
+  const buf=new Uint8Array(total); buf.set(bytes); buf[bytes.length]=0x80;
+  const dv=new DataView(buf.buffer);
+  dv.setUint32(total-4, ml>>>0); dv.setUint32(total-8, Math.floor(ml/2**32));
+  let h0=0x67452301,h1=0xEFCDAB89,h2=0x98BADCFE,h3=0x10325476,h4=0xC3D2E1F0;
+  const w=new Uint32Array(80);
+  const rol=(x,n)=>(x<<n)|(x>>>(32-n));
+  for(let off=0;off<total;off+=64){
+    for(let i=0;i<16;i++) w[i]=dv.getUint32(off+i*4);
+    for(let i=16;i<80;i++) w[i]=rol(w[i-3]^w[i-8]^w[i-14]^w[i-16],1);
+    let a=h0,b=h1,c=h2,d=h3,e=h4;
+    for(let i=0;i<80;i++){
+      let f,k;
+      if(i<20){f=(b&c)|(~b&d);k=0x5A827999}
+      else if(i<40){f=b^c^d;k=0x6ED9EBA1}
+      else if(i<60){f=(b&c)|(b&d)|(c&d);k=0x8F1BBCDC}
+      else {f=b^c^d;k=0xCA62C1D6}
+      const t=(rol(a,5)+f+e+k+w[i])>>>0;
+      e=d;d=c;c=rol(b,30)>>>0;b=a;a=t;
+    }
+    h0=(h0+a)>>>0;h1=(h1+b)>>>0;h2=(h2+c)>>>0;h3=(h3+d)>>>0;h4=(h4+e)>>>0;
+  }
+  return [h0,h1,h2,h3,h4].map(x=>x.toString(16).padStart(8,"0")).join("").toUpperCase();
+}
+
+/* ---------- laboratorio ---------- */
+const LISTA=["qwerty","123456","password","iloveyou","futbol2024","Mazapan123","contraseña","Tigre_Azul#58","Nopal-Verde-Cielo-91","x9$Lm!q2Rz7&vB"];
+const $=id=>document.getElementById(id);
+const pwlist=$("pwlist"),hv=$("hashview"),resp=$("resp"),go=$("go"),cnt=$("cnt");
+let lines=[],target=-1,timer=null;
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s}}
+function fakeSuffix(r){let o="";for(let i=0;i<35;i++)o+="0123456789ABCDEF"[r()%16];return o}
+function build(h){
+  const r=rng(parseInt(h.slice(0,8),16)), suf=h.slice(5), arr=[];
+  for(let i=0;i<17;i++)arr.push(fakeSuffix(r));
+  arr.push(suf); arr.sort();
+  lines=arr.map(s=>{const real=s===suf,pad=!real&&r()%4===0;return{s,real,pad,n:real?"???":(pad?"0":String(1+r()%40))}});
+  target=lines.findIndex(l=>l.real);
+  resp.innerHTML=lines.map((l,i)=>`<div id="ln${i}" class="${l.pad?"pad":""}">${l.s}:${l.n}</div>`).join("");
+  cnt.textContent="Comparaciones: 0"; go.disabled=false;
+}
+function select(pw,btn){
+  clearInterval(timer);
+  pwlist.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed","false"));
+  btn.setAttribute("aria-pressed","true");
+  const h=sha1(pw);
+  hv.innerHTML=`<span class="pre">${h.slice(0,5)}</span><span class="suf">${h.slice(5)}</span>`;
+  $("pfx").textContent=h.slice(0,5); $("sfx").textContent=h.slice(5);
+  $("url").textContent="api.pwnedpasswords.com/range/"+h.slice(0,5);
+  build(h);
+}
+LISTA.forEach((pw,i)=>{
+  const b=document.createElement("button");
+  b.type="button";b.className="pwbtn";b.textContent=pw;b.setAttribute("aria-pressed","false");
+  b.addEventListener("click",()=>select(pw,b)); pwlist.appendChild(b);
+  if(i===0)select(pw,b);
+});
+go.addEventListener("click",()=>{
+  clearInterval(timer);
+  resp.querySelectorAll("div").forEach(d=>d.classList.remove("cur","found"));
+  go.disabled=true;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let i=0;
+  const stepFn=()=>{
+    if(i>0)$("ln"+(i-1)).classList.remove("cur");
+    const el=$("ln"+i); cnt.textContent="Comparaciones: "+(i+1);
+    resp.scrollTop=Math.max(0,el.offsetTop-resp.clientHeight/2);
+    if(i===target){el.classList.add("found");el.textContent=lines[i].s+"  ← ¡es el tuyo!";clearInterval(timer);go.disabled=false;return true}
+    el.classList.add("cur");i++;return false;
+  };
+  if(reduce){while(!stepFn()){}}else timer=setInterval(stepFn,260);
+});
+$("reset").addEventListener("click",()=>{const b=pwlist.querySelector('[aria-pressed="true"]');if(b)b.click()});
+
+/* ---------- rúbrica-calculadora ---------- */
+const L3=(a,b,c)=>[a,b,c];
+const GRUPOS=[
+ {id:"t",nombre:"Equipo",max:40,items:[
+  {id:"fun",nombre:"Funcionalidad",que:"Se revisa en la presentación",max:20,val:16,lv:L3(
+    {n:"Insuficiente",r:[0,8],d:"No corre o se detiene con error."},
+    {n:"Mínimo",r:[9,15],d:"Revisa contraseñas, consulta la API y aguanta una entrada vacía."},
+    {n:"Óptimo",r:[16,20],d:"Cumple F1 a F6. Maneja falla de red, entradas inválidas y salir sin detenerse."})},
+  {id:"rep",nombre:"Reporte gráfico",que:"La imagen reporte_analisis.png",max:10,val:8,lv:L3(
+    {n:"Insuficiente",r:[0,4],d:"No se genera la imagen."},
+    {n:"Mínimo",r:[5,7],d:"Una gráfica que se entiende."},
+    {n:"Óptimo",r:[8,10],d:"Dos o más gráficas con título y ejes, y una que compara F2 con F1."})},
+  {id:"doc",nombre:"Documentación y orden del código",que:"El PDF y el notebook",max:10,val:9,lv:L3(
+    {n:"Insuficiente",r:[0,4],d:"Falta el diagrama o no se sabe quién hizo qué."},
+    {n:"Mínimo",r:[5,7],d:"Integrantes, autores de cada parte y diagrama de flujo."},
+    {n:"Óptimo",r:[8,10],d:"Además, el código va en secciones por autor, sin repetir funciones y con nombres claros."})}
+ ]},
+ {id:"i",nombre:"Tu sección personal",max:30,items:[
+  {id:"pro",nombre:"Tu proceso con IA",que:"Qué le pediste a la IA, qué te dio y qué hiciste con eso: lo usaste, lo cambiaste o lo descartaste. No hace falta anotar todos los prompts.",max:20,val:16,lv:L3(
+    {n:"Falta",r:[0,5],d:"No lo cuentas."},
+    {n:"Parcial",r:[6,14],d:"Lo cuentas muy en general, o no se distingue qué hizo la IA y qué hiciste tú."},
+    {n:"Completo",r:[15,20],d:"Se entiende qué hizo la IA, qué hiciste tú y cómo llegaste al resultado."})},
+  {id:"con",nombre:"Conclusión",que:"Lo que te llevas del proyecto",max:10,val:8,lv:L3(
+    {n:"Falta",r:[0,2],d:"No hay."},
+    {n:"Parcial",r:[3,7],d:"Una línea genérica."},
+    {n:"Completo",r:[8,10],d:"Qué aprendiste y qué harías distinto."})}
+ ]},
+ {id:"i",nombre:"Tu microdefensa",max:30,items:[
+  {id:"d1",nombre:"Lees tu código",que:"Explicas tu parte línea por línea",max:10,val:9,lv:L3(
+    {n:"Insuficiente",r:[0,5],d:"No sigues el flujo de tu parte."},
+    {n:"En desarrollo",r:[6,8],d:"Explicas en general, pero te pierdes en el detalle."},
+    {n:"Logrado",r:[9,10],d:"Recorres línea por línea y dices para qué sirve cada función."})},
+  {id:"d2",nombre:"Predices qué pasa",que:"Con una entrada que la profesora elige",max:10,val:7,lv:L3(
+    {n:"Insuficiente",r:[0,5],d:"No anticipas qué saldrá."},
+    {n:"En desarrollo",r:[6,8],d:"Aciertas en casos simples, fallas en los raros."},
+    {n:"Logrado",r:[9,10],d:"Predices la salida y qué pasa con errores o entradas inesperadas."})},
+  {id:"d3",nombre:"Justificas tus decisiones",que:"Por qué así y qué hizo la IA",max:10,val:8,lv:L3(
+    {n:"Insuficiente",r:[0,5],d:"No sabes por qué está hecho así ni qué hizo la IA."},
+    {n:"En desarrollo",r:[6,8],d:"Das una razón parcial o repites lo que dijo la IA."},
+    {n:"Logrado",r:[9,10],d:"Explicas por qué así, una opción que descartaste y qué aceptaste, cambiaste o rechazaste de la IA."})}
+ ]}
+];
+const calc=$("calc"), vals={};
+function lvlHTML(it){return `<div class="lvl3">${it.lv.map(l=>`<div><b>${l.n}</b><span class="lr">${l.r[0]}–${l.r[1]} pts</span><span>${l.d}</span></div>`).join("")}</div>`}
+(function(){
+  const ct=$("col-t"), ci=$("col-i");
+  GRUPOS[0].items.forEach(it=>{
+    const d=document.createElement("details"); d.className="asp";
+    d.innerHTML=`<summary><span class="nm">${it.nombre}</span><span class="pt">${it.max} pts</span></summary><div class="asp-b"><p class="note">${it.que}</p>${lvlHTML(it)}</div>`;
+    ct.appendChild(d);
+  });
+  [GRUPOS[1],GRUPOS[2]].forEach(g=>{
+    const d=document.createElement("details"); d.className="asp";
+    d.innerHTML=`<summary><span class="nm">${g.nombre}</span><span class="pt">${g.max} pts</span></summary><div class="asp-b">${g.items.map(it=>`<div class="sub-c"><h5>${it.nombre} · ${it.max} pts</h5><p class="note">${it.que}</p>${lvlHTML(it)}</div>`).join("")}</div>`;
+    ci.appendChild(d);
+  });
+})();
+GRUPOS.forEach((g,gi)=>{
+  const sec=document.createElement("div"); sec.className="group";
+  sec.innerHTML=`<div class="group-h ${g.id}"><h3>${g.nombre}</h3><span class="sub"><span id="sub${gi}">0</span> / ${g.max}</span></div>`;
+  g.items.forEach(it=>{
+    vals[it.id]=it.val;
+    const c=document.createElement("div"); c.className="crit";
+    c.innerHTML=`<div class="crit-top"><div><h4>${it.nombre}</h4><span class="what">${it.que}</span></div>
+      <span class="score"><span id="v-${it.id}">${it.val}</span><small> / ${it.max}</small></span></div>
+      <input type="range" id="c-${it.id}" min="0" max="${it.max}" value="${it.val}" aria-label="${it.nombre}, puntos de 0 a ${it.max}">
+      <div class="levels">${it.lv.map((l,li)=>`<div class="lv" id="l-${it.id}-${li}"><span class="ln">${l.n}</span><span class="lr">${l.r[0]}–${l.r[1]} pts</span><span>${l.d}</span></div>`).join("")}</div>`;
+    sec.appendChild(c);
+  });
+  calc.appendChild(sec);
+});
+function update(){
+  let total=0;
+  GRUPOS.forEach((g,gi)=>{
+    let sub=0;
+    g.items.forEach(it=>{
+      const v=+$("c-"+it.id).value; vals[it.id]=v; sub+=v;
+      $("v-"+it.id).textContent=v;
+      it.lv.forEach((l,li)=>$("l-"+it.id+"-"+li).classList.toggle("on",v>=l.r[0]&&v<=l.r[1]));
+    });
+    $("sub"+gi).textContent=sub; total+=sub;
+  });
+  $("r-pro").textContent=total;
+  $("r-cur").textContent=(total*0.4).toFixed(1);
+  $("r-warn").hidden=!(vals.d1<=5&&vals.d2<=5);
+}
+calc.addEventListener("input",update); update();
+
+/* ---------- lista de prueba ---------- */
+(function(){
+  const txt="CONTRASENAS_PRUEBA = [\n"+LISTA.map(p=>'    "'+p+'",').join("\n")+"\n]";
+  $("lp-code").textContent=txt;
+  $("lp-chips").innerHTML=LISTA.map(p=>`<span class="chip mono"></span>`).join("");
+  $("lp-chips").querySelectorAll(".chip").forEach((c,i)=>c.textContent=LISTA[i]);
+  const b=$("lp-copy"),m=$("lp-msg");
+  b.addEventListener("click",()=>{
+    const sel=()=>{const r=document.createRange();r.selectNodeContents($("lp-code"));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent="Ya está seleccionada: cópiala con Ctrl + C."};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(()=>{m.textContent="Copiada. Pégala en una celda de Colab."}).catch(sel); else sel();
+  });
+})();
+
+/* ---------- páginas paso a paso ---------- */
+(function(){
+  const pages=[...document.querySelectorAll("section.page")];
+  const steps=$("steps"), fill=$("bar-fill"), bar=$("bar"), count=$("tb-count");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cur=-1, busy=false;
+  pages.forEach((p,i)=>{
+    p.hidden=true; p.tabIndex=-1;
+    const li=document.createElement("li"), b=document.createElement("button");
+    b.type="button"; b.innerHTML=`<span class="dot">${i+1}</span><span></span>`;
+    b.lastChild.textContent=p.dataset.label;
+    b.addEventListener("click",()=>go(i));
+    li.appendChild(b); steps.appendChild(li);
+  });
+  const btns=[...steps.querySelectorAll("button")];
+  function ui(){
+    const n=pages.length, pct=Math.round((cur+1)/n*100);
+    fill.style.width=pct+"%"; bar.setAttribute("aria-valuenow",pct);
+    count.textContent=`Paso ${cur+1} de ${n}`;
+    btns.forEach((b,i)=>{b.classList.toggle("done",i<cur); if(i===cur)b.setAttribute("aria-current","step"); else b.removeAttribute("aria-current");});
+    const sb=btns[cur]; steps.scrollTo({left:Math.max(0,sb.offsetLeft-steps.clientWidth/2+sb.offsetWidth/2),behavior:reduce?"auto":"smooth"});
+    $("prev").hidden=cur===0; $("next").hidden=cur===n-1;
+    if(cur>0)$("prev-l").textContent=pages[cur-1].dataset.label;
+    if(cur<n-1)$("next-l").textContent=pages[cur+1].dataset.label;
+  }
+  function show(i,dir,anchor){
+    const p=pages[i]; p.hidden=false;
+    p.classList.remove("in-r","in-l");
+    if(!reduce&&dir){void p.offsetWidth; p.classList.add(dir>0?"in-r":"in-l");}
+    cur=i; ui();
+    const target=anchor&&anchor!==p?anchor:null;
+    p.focus({preventScroll:true});
+    const place=()=>{ if(target){ const y=target.getBoundingClientRect().top+scrollY-document.querySelector(".topbar").offsetHeight-12; window.scrollTo(0,Math.max(0,y)); } else window.scrollTo(0,0); };
+    place(); requestAnimationFrame(place);
+    busy=false;
+  }
+  function go(i,anchor){
+    if(i<0||i>=pages.length||busy) return;
+    const id=pages[i].id;
+    if(location.hash!=="#"+(anchor&&anchor.id||id)){ try{history.replaceState(null,"","#"+(anchor&&anchor.id||id))}catch(e){} }
+    if(i===cur){ if(anchor) anchor.scrollIntoView({block:"start",behavior:reduce?"auto":"smooth"}); return; }
+    const dir=cur<0?0:(i>cur?1:-1);
+    if(cur<0||reduce){ if(cur>=0)pages[cur].hidden=true; show(i,dir,anchor); return; }
+    busy=true;
+    const out=pages[cur];
+    out.classList.remove("in-r","in-l"); out.classList.add(dir>0?"out-l":"out-r");
+    let done=false;
+    const fin=()=>{ if(done)return; done=true; out.hidden=true; out.classList.remove("out-l","out-r"); show(i,dir,anchor); };
+    out.addEventListener("animationend",fin,{once:true}); setTimeout(fin,260);
+  }
+  function route(){
+    const h=decodeURIComponent(location.hash.slice(1));
+    const el=h?document.getElementById(h):null;
+    let i=0, anchor=null;
+    if(el){ const p=el.closest("section.page"); if(p){ i=pages.indexOf(p); if(p!==el) anchor=el; } }
+    go(i,anchor);
+  }
+  document.addEventListener("click",e=>{
+    const a=e.target.closest('a[href^="#"]'); if(!a) return;
+    const el=document.getElementById(a.getAttribute("href").slice(1)); if(!el) return;
+    const p=el.closest("section.page"); if(!p) return;
+    e.preventDefault(); go(pages.indexOf(p), p!==el?el:null);
+  });
+  $("prev").addEventListener("click",()=>go(cur-1));
+  $("next").addEventListener("click",()=>go(cur+1));
+  addEventListener("hashchange",route);
+  document.addEventListener("keydown",e=>{
+    if(e.target.closest("input,textarea,select,[contenteditable]")) return;
+    if(e.key==="ArrowRight"&&!e.altKey&&!e.metaKey) go(cur+1);
+    if(e.key==="ArrowLeft"&&!e.altKey&&!e.metaKey) go(cur-1);
+  });
+  route();
+})();
+
+/* ---------- banco de preguntas ---------- */
+const Q=[
+ ["Todos","Recorre tu parte: ¿qué recibe, qué hace y qué devuelve?"],
+ ["Todos","Muéstrame algo de la IA que aceptaste, cambiaste o rechazaste. ¿Por qué?"],
+ ["Todos","Si te doy esta entrada nueva, ¿qué sale?"],
+ ["F1","¿Dónde se busca el sufijo, y por qué en tu computadora y no en el servidor?"],
+ ["F1","¿Qué viaja por internet cuando revisas una contraseña?"],
+ ["F1","Si la API no responde, ¿qué devuelve tu función y en qué línea se decide?"],
+ ["F1","¿Por qué el hash se pasa a mayúsculas?"],
+ ["F2","¿Cuál es tu regla propia y por qué la elegiste?"],
+ ["F2","Si agrego otra regla, ¿qué cambias y dónde?"],
+ ["F2","¿Cuántas veces recorres la contraseña? ¿Qué cambia si es del doble de largo?"],
+ ["F2","¿Qué pasa con una contraseña vacía?"],
+ ["F3","¿Qué estructura usaste para guardar los resultados y por qué esa?"],
+ ["F3","¿Por qué no guardas la contraseña?"],
+ ["F3","¿Dónde cuentas cuántas hay de cada nivel?"],
+ ["F4","¿De dónde salen los datos de cada gráfica?"],
+ ["F4","¿Qué pasa si todas son débiles, o si no se revisó ninguna?"],
+ ["F4","¿Por qué elegiste ese tipo de gráfica?"],
+ ["F5","¿Cómo sabe tu programa que el usuario quiere salir?"],
+ ["F5","Si la consulta devuelve -1, ¿qué hace tu programa?"],
+ ["F5","¿Qué pasa con una entrada vacía o con solo espacios?"],
+ ["F5","¿Por qué usar getpass y no input?"]
+];
+const qf=$("qf"),ql=$("ql"); let filtro="Todas";
+function renderQ(){
+  ql.innerHTML=Q.filter(q=>filtro==="Todas"||q[0]===filtro||q[0]==="Todos").map(q=>`<li><span class="who">${q[0]}</span><span>${q[1]}</span></li>`).join("");
+  qf.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.f===filtro)));
+}
+["Todas","F1","F2","F3","F4","F5"].forEach(f=>{
+  const b=document.createElement("button");b.type="button";b.dataset.f=f;
+  b.textContent=f==="Todas"?"Ver todas":"Mi parte es "+f;
+  b.addEventListener("click",()=>{filtro=f;renderQ()}); qf.appendChild(b);
+});
+renderQ();
+
+})();
+</script>
+
+</body></html>
